@@ -14,7 +14,6 @@ namespace Padrao.APi.Controllers
         {
             _userService = usersService;
         }
-        [AllowAnonymous]
         [HttpPost]
         [Route("new")]
         public async Task<IActionResult> NewUser(NewUserRequest jsonRequest) => JsonResponse(await _userService.New(jsonRequest));

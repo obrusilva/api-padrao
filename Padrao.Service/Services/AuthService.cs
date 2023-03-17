@@ -13,21 +13,18 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Padrao.Service.Interface;
 
 namespace Padrao.Service.Services
 {
-    public class AuthService : BaseService
+    public class AuthService : BaseService, IAuthService
     {
-        private readonly IConfiguration _configuration;
-        private readonly UsersRepository _dalUser;
         private readonly AppToken _appToken;
-        private readonly UsersService _usersService;
-        public AuthService(IConfiguration configuration, IResponse response, IOptions<AppToken> appToken) : base(response)
+        private readonly IUsersService _usersService;
+        public AuthService(IConfiguration configuration, IResponse response, IOptions<AppToken> appToken, IUsersService usersService) : base(response)
         {
-            _configuration = configuration;
-            _dalUser = new(configuration);
             _appToken = appToken.Value;
-            _usersService = new UsersService(configuration, response);
+            _usersService = usersService;
         }
         public async Task<UserLogin> Login(LoginRequest login)
         {

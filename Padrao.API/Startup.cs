@@ -17,6 +17,8 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.Json;
+using Padrao.Service.Interface;
+using Padrao.Service.Services;
 
 namespace Padrao.APi
 {
@@ -72,6 +74,9 @@ namespace Padrao.APi
             services.AddScoped<DataContext,DataContext>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IUser, UserAuthenticated>();
+            services.AddScoped<IUsersService, UsersService>();
+            services.AddScoped<IAuthService, AuthService>();
+
             services.AddSwaggerConfiguration();
         }
 

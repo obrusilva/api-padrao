@@ -1,22 +1,19 @@
 ﻿using Padrao.Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Padrao.Service.Services;
 using Padrao.Domain.Request;
-using Microsoft.Extensions.Options;
-using Padrao.Domain.Virtual;
+using Padrao.Service.Interface;
 
 namespace Padrao.APi.Controllers
 {
     public class AuthController : BaseController
     {
-        private readonly AuthService _authService;
+        private readonly IAuthService _authService;
 
-        public AuthController(IConfiguration configuration, IResponse response, IOptions<AppToken> appToken) : base(response)
+        public AuthController( IResponse response, IAuthService  authService) : base(response)
         {
-            _authService = new(configuration, response, appToken);
+            _authService = authService;
         }
 
         [AllowAnonymous]

@@ -6,17 +6,15 @@ using Padrao.Domain.Virtual;
 using Padrao.Infra.Repository;
 using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
+using Padrao.Service.Interface;
 
 namespace Padrao.Service.Services
 {
-    public class UsersService : BaseService
+    public class UsersService : BaseService, IUsersService
     {
-        private readonly IConfiguration _configuration;
         private readonly UsersRepository _dalUser;
-        private readonly AppToken _appToken;
         public UsersService(IConfiguration configuration, IResponse response) : base(response)
         {
-            _configuration = configuration;
             _dalUser = new(configuration);
         }
 
@@ -55,7 +53,7 @@ namespace Padrao.Service.Services
         }
         public async Task<Users> GetByEmailAsync(string email)
         {
-            var userDb = await _dalUser.GetAsync(null,email);
+            var userDb = await _dalUser.GetAsync(null, email);
             if (userDb == null)
                 return null;
 

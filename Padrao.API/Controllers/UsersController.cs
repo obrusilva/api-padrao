@@ -1,19 +1,18 @@
 ﻿using Padrao.Domain.Interfaces;
 using Padrao.Domain.Request;
-using Padrao.Service.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
+using Padrao.Service.Interface;
 
 namespace Padrao.APi.Controllers
 {
     public class UsersController : BaseController
     {
-        private readonly UsersService _userService;
-        public UsersController(IConfiguration configuration, IResponse response) : base(response)
+        private readonly IUsersService _userService;
+        public UsersController(IResponse response, IUsersService usersService) : base(response)
         {
-            _userService = new(configuration, response);
+            _userService = usersService;
         }
         [AllowAnonymous]
         [HttpPost]

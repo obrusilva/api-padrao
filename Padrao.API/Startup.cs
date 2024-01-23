@@ -70,6 +70,7 @@ namespace Padrao.APi
                 options.SupportedCultures = new List<CultureInfo> { new CultureInfo("pt-BR") };
             });
 
+            services.AddHttpContextAccessor();
             services.AddScoped<IResponse, Response>();
             services.AddScoped<DataContext,DataContext>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

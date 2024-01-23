@@ -1,5 +1,5 @@
-﻿using Padrao.Domain.Interfaces;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
+using Padrao.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

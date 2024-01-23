@@ -21,13 +21,14 @@ namespace Padrao.Service.Services
     {
         private readonly AppToken _appToken;
         private readonly IUsersService _usersService;
-        public AuthService(IConfiguration configuration, IResponse response, IOptions<AppToken> appToken, IUsersService usersService) : base(response)
+        public AuthService(IResponse response, IOptions<AppToken> appToken, IUsersService usersService) : base(response)
         {
             _appToken = appToken.Value;
             _usersService = usersService;
         }
         public async Task<UserLogin> Login(LoginRequest login)
         {
+            
             var user = await _usersService.GetByUserAsync(login.UserName);
             if (user == null)
             {

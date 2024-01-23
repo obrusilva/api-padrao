@@ -17,8 +17,10 @@ namespace Padrao.Domain.Virtual
             string retContent = string.Empty;
             try
             {
-                var request = new RestRequest(Method.GET);
-
+                RestRequest request = new()
+                {
+                    Method = Method.Get
+                };
                 if (!string.IsNullOrEmpty(json))
                 {
                     request.AddParameter("application/json", json, ParameterType.RequestBody);
@@ -40,10 +42,7 @@ namespace Padrao.Domain.Virtual
                     }
                 }
 
-                var restClient = new RestClient(uri)
-                {
-                    Timeout = 600000
-                };
+                var restClient = new RestClient(uri);
                 var response = await restClient.ExecuteAsync(request);
 
                 retContent = response.Content;

@@ -1,6 +1,5 @@
 ﻿using Padrao.Domain.Interfaces;
 using Padrao.Domain.Request;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Padrao.Service.Interface;

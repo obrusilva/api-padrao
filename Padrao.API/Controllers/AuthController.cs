@@ -7,19 +7,21 @@ using Padrao.Service.Interface;
 
 namespace Padrao.APi.Controllers
 {
-    public class AuthController : BaseController
+    public class AuthController(IResponse response, IAuthService authService) : BaseController(response)
     {
-        private readonly IAuthService _authService;
-
-        public AuthController( IResponse response, IAuthService  authService) : base(response)
-        {
-            _authService = authService;
-        }
+        private readonly IAuthService _authService = authService;
 
         [AllowAnonymous]
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login(LoginRequest jsonRequest) => JsonResponse(await _authService.Login(jsonRequest));
 
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult Criptografa(string teste) {
+
+            var testse = _authService.Criptografa(teste);
+            return JsonResponse(testse);
+        } 
     }
 }

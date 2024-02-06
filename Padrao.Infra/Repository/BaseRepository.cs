@@ -1,4 +1,4 @@
-﻿using Functions.Util.Data;
+﻿using Konekti.BD;
 using Microsoft.Extensions.Configuration;
 
 namespace Padrao.Infra.Repository

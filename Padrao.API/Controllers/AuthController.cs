@@ -7,14 +7,9 @@ using Padrao.Service.Interface;
 
 namespace Padrao.APi.Controllers
 {
-    public class AuthController : BaseController
+    public class AuthController(IResponse response, IAuthService authService) : BaseController(response)
     {
-        private readonly IAuthService _authService;
-
-        public AuthController( IResponse response, IAuthService  authService) : base(response)
-        {
-            _authService = authService;
-        }
+        private readonly IAuthService _authService = authService;
 
         [AllowAnonymous]
         [HttpPost]

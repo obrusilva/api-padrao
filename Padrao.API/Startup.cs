@@ -1,4 +1,3 @@
-using Functions.Util.Data;
 using Padrao.APi.Configuration;
 using Padrao.APi.Filters;
 using Padrao.APi.Formatter;
@@ -19,6 +18,7 @@ using System.Linq;
 using System.Text.Json;
 using Padrao.Service.Interface;
 using Padrao.Service.Services;
+using Konekti.BD;
 
 namespace Padrao.APi
 {
@@ -70,6 +70,7 @@ namespace Padrao.APi
                 options.SupportedCultures = new List<CultureInfo> { new CultureInfo("pt-BR") };
             });
 
+            services.AddHttpContextAccessor();
             services.AddScoped<IResponse, Response>();
             services.AddScoped<DataContext,DataContext>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

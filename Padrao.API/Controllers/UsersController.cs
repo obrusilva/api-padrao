@@ -1,9 +1,9 @@
 ﻿using Padrao.Domain.Interfaces;
 using Padrao.Domain.Request;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Padrao.Service.Interface;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Padrao.APi.Controllers
 {
@@ -14,6 +14,7 @@ namespace Padrao.APi.Controllers
         {
             _userService = usersService;
         }
+        [AllowAnonymous]
         [HttpPost]
         [Route("new")]
         public async Task<IActionResult> NewUser(NewUserRequest jsonRequest) => JsonResponse(await _userService.New(jsonRequest));

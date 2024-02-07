@@ -6,6 +6,7 @@ namespace Padrao.Service.Interface
 {
     public interface IAuthService
     {
+        string Criptografa(string texto);
         Task<UserLogin> Login(LoginRequest login);
     }
 }

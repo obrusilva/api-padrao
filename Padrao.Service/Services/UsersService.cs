@@ -1,21 +1,24 @@
-﻿using Functions.Util.Cryptography;
-using Padrao.Domain.Entities;
+﻿using Padrao.Domain.Entities;
 using Padrao.Domain.Interfaces;
 using Padrao.Domain.Request;
-using Padrao.Domain.Virtual;
 using Padrao.Infra.Repository;
 using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
 using Padrao.Service.Interface;
+using kriptografo;
+
 
 namespace Padrao.Service.Services
 {
     public class UsersService : BaseService, IUsersService
     {
         private readonly UsersRepository _dalUser;
+
+        private readonly Cryptography _cryptography;
         public UsersService(IConfiguration configuration, IResponse response) : base(response)
         {
             _dalUser = new(configuration);
+            _cryptography = new Cryptography(configuration);
         }
 
         public async Task<NewUserRequest> New(NewUserRequest newUser)
@@ -37,7 +40,7 @@ namespace Padrao.Service.Services
                 return null;
             }
 
-            newUser.PassWord = Cryptography.Encrypts(newUser.PassWord);
+            newUser.PassWord = _cryptography.Encrypt(newUser.PassWord);
             await _dalUser.NewAsync(newUser);
             UpdateMessage("Usuario cadastrado com sucesso!");
             return newUser;

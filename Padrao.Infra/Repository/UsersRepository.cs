@@ -1,10 +1,10 @@
-﻿using Functions.Util.Data;
-using Padrao.Domain.Request;
+﻿using Padrao.Domain.Request;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Konekti.BD;
 
 namespace Padrao.Infra.Repository
 {

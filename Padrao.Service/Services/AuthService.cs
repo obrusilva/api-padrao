@@ -1,10 +1,7 @@
-﻿using Functions.Util.Cryptography;
-using Functions.Util.Functions;
+﻿using Functions.Util.Functions;
 using Padrao.Domain.Interfaces;
 using Padrao.Domain.Request;
 using Padrao.Domain.Virtual;
-using Padrao.Infra.Repository;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -14,6 +11,8 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Padrao.Service.Interface;
+using Microsoft.Extensions.Configuration;
+using kriptografo;
 
 namespace Padrao.Service.Services
 {
@@ -21,13 +20,16 @@ namespace Padrao.Service.Services
     {
         private readonly AppToken _appToken;
         private readonly IUsersService _usersService;
-        public AuthService(IConfiguration configuration, IResponse response, IOptions<AppToken> appToken, IUsersService usersService) : base(response)
+        private readonly Cryptography _cryptography; 
+        public AuthService(IResponse response, IOptions<AppToken> appToken, IUsersService usersService, IConfiguration configuration) : base(response)
         {
             _appToken = appToken.Value;
             _usersService = usersService;
+            _cryptography = new Cryptography(configuration);
         }
         public async Task<UserLogin> Login(LoginRequest login)
         {
+            
             var user = await _usersService.GetByUserAsync(login.UserName);
             if (user == null)
             {
@@ -38,14 +40,16 @@ namespace Padrao.Service.Services
                     return null;
                 }
             }
-            var passwordCripty = Cryptography.Encrypts(login.PassWord);
-            if (!FunctionsString.EqualsString(passwordCripty, user.PassWord))
+
+            if (!FunctionsString.EqualsString(login.PassWord, _cryptography.Decrypt(user.PassWord)))
             {
                 AddError("Usuario ou senha inválidos!");
                 return null;
             }
             return await NewTokenAsync(user.UserName, _appToken);
         }
+
+        public string Criptografa(string texto) => _cryptography.Encrypt(texto);
         private async Task<UserLogin> NewTokenAsync(string user, AppToken appToken)
         {
             List<Claim> claims = new();

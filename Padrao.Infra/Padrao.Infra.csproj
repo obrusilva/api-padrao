@@ -5,7 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Functions.Util\Functions.Util.csproj" />
+    <PackageReference Include="Konekti.BD" Version="1.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Padrao.Domain\Padrao.Domain.csproj" />
   </ItemGroup>
 

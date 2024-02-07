@@ -15,4 +15,8 @@
     <Folder Include="Views\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Functions.Util\Functions.Util.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -16,12 +16,5 @@ namespace Padrao.APi.Controllers
         [Route("login")]
         public async Task<IActionResult> Login(LoginRequest jsonRequest) => JsonResponse(await _authService.Login(jsonRequest));
 
-        [AllowAnonymous]
-        [HttpGet]
-        public IActionResult Criptografa(string teste) {
-
-            var testse = _authService.Criptografa(teste);
-            return JsonResponse(testse);
-        } 
     }
 }

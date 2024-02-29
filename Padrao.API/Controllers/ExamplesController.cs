@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 using Padrao.APi.Controllers;
 using Padrao.Domain.Interfaces;
@@ -16,7 +17,8 @@ namespace Padrao.Api.Controllers
             Thread.Sleep(10000);
             return JsonResponse();
         }
-        
+
+        [AllowAnonymous]
         [HttpPost]
         [EnableRateLimiting("concurrency")]
         [Route("rate-limiting-post")]
